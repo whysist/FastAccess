@@ -1,4 +1,4 @@
-import { FunctionDeclaration, Type } from '@google/genai';
+import { FunctionDeclaration } from '@google/genai';
 import { computeRoute } from '@/lib/venue/routing';
 import { VENUE_NODES } from '@/lib/venue/graph';
 import { getSensoryEvents } from '@/lib/sensory/schedule';

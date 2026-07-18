@@ -6,3 +6,15 @@
 - No AI calls happen client-side; the client only ever talks to this app's own API routes.
 - Minimal dependency footprint: 4 production dependencies total (`next`, `react`, `react-dom`, `@google/genai`).
 
+## Results
+
+**Lighthouse, run against the live production deployment (Chrome DevTools):**
+
+| Category | Score |
+|---|---|
+| Performance | 100 |
+| Accessibility | 100 |
+| Best Practices | 100 |
+| SEO | 100 |
+
+Measured against the real deployed app, not a local dev build.
