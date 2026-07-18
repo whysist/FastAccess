@@ -43,7 +43,7 @@ export function QueryBox() {
   return (
     <div>
       <form onSubmit={submit} className="flex flex-col gap-3 max-w-2xl">
-        <label htmlFor="query-input" className="text-sm text-fa-ink/60">
+        <label htmlFor="query-input" className="text-sm text-fa-ink-muted">
           Ask about accessibility features, quiet zones, routes, or sensory events.
         </label>
         <div className="flex gap-3 items-start">
@@ -61,7 +61,7 @@ export function QueryBox() {
             rows={2}
             className="flex-1 border border-fa-border px-4 py-3 text-sm text-fa-ink bg-white resize-none
                        focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-fa-route focus-visible:ring-offset-[3px]
-                       placeholder:text-fa-ink/30"
+                       placeholder:text-fa-ink-muted"
             placeholder="e.g. Which gate has the shortest step-free route to Section 103?"
             disabled={loading}
             aria-label="Question input"
@@ -94,10 +94,10 @@ export function QueryBox() {
         >
           {response.stub && (
             <div className="flex items-center gap-2 mb-3 pb-3 border-b border-fa-border">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-fa-ink/40 bg-fa-ink/5 px-2 py-1">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-fa-ink-muted bg-fa-ink/5 px-2 py-1">
                 AI Preview
               </span>
-              <span className="text-xs text-fa-ink/40">Features coming soon</span>
+              <span className="text-xs text-fa-ink-muted">Features coming soon</span>
             </div>
           )}
           <p className="text-sm text-fa-ink leading-relaxed">{response.message}</p>

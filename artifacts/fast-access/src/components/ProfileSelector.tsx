@@ -117,7 +117,7 @@ export function ProfileSelector({ selected, onChange }: Props) {
             )}
 
             <div className="font-bold text-sm text-fa-ink leading-tight mb-1">{profile.label}</div>
-            <div className="text-xs text-fa-ink/60 leading-snug">{profile.description}</div>
+            <div className="text-xs text-fa-ink-muted leading-snug">{profile.description}</div>
           </button>
         );
       })}

@@ -21,8 +21,11 @@ interface RouteResult {
 const ACCESS_COLOR: Record<AccessType, string> = {
   'step-free': '#1A4D8F',
   'ramp':      '#2F6B5E',
-  'elevator':  '#C77D22',
-  'stairs-only': '#6B7280',
+  'elevator':  '#8A5A18', // was '#C77D22' -- the pre-darkened caution hex, hardcoded here
+                           // separately from the tailwind.config.ts token, so the earlier
+                           // config-level fix never touched this inline-styled duplicate
+  'stairs-only': '#4B5563', // was '#6B7280' (~4.63:1, technically passed AA but with almost
+                              // no margin) -- reusing the same value as fa-ink-muted for consistency
 };
 
 const ACCESS_LABEL: Record<AccessType, string> = {
@@ -73,7 +76,7 @@ export function RouteMap({ route }: Props) {
                   <div className="text-[11px] font-bold text-fa-ink leading-tight px-1">
                     {step.node.label}
                   </div>
-                  <div className="text-[10px] text-fa-ink/40 uppercase tracking-wide mt-0.5">
+                  <div className="text-[10px] text-fa-ink-muted uppercase tracking-wide mt-0.5">
                     {step.node.type.replace(/_/g, ' ')}
                   </div>
                 </div>
@@ -118,10 +121,10 @@ export function RouteMap({ route }: Props) {
           <div className="flex items-start mt-2">
             {route.steps.map((step, i) => (
               <div key={step.node.id} className="flex">
-                <div className="w-28 text-center font-mono text-[11px] text-fa-ink/50">
+                <div className="w-28 text-center font-mono text-[11px] text-fa-ink-muted">
                   {step.cumulativeM}m
                   {step.distanceM > 0 && (
-                    <span className="text-[10px] text-fa-ink/30 ml-1">(+{step.distanceM})</span>
+                    <span className="text-[10px] text-fa-ink-muted ml-1">(+{step.distanceM})</span>
                   )}
                 </div>
                 {i < route.steps.length - 1 && <div className="w-20" />}
@@ -133,7 +136,7 @@ export function RouteMap({ route }: Props) {
       </div>
 
       {/* Summary bar */}
-      <div className="flex flex-wrap gap-6 mt-3 px-1 text-xs text-fa-ink/60">
+      <div className="flex flex-wrap gap-6 mt-3 px-1 text-xs text-fa-ink-muted">
         <span>
           <span className="font-bold font-mono text-fa-ink">{route.totalDistanceM}m</span>
           <span className="ml-1">total distance</span>

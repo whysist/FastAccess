@@ -66,7 +66,7 @@ interface Props {
 export function SensoryTimeline({ events, currentMinute }: Props) {
   if (events.length === 0) {
     return (
-      <p className="text-sm text-fa-ink/50 py-4">
+      <p className="text-sm text-fa-ink-muted py-4">
         No sensory events in the next 30 minutes from minute {currentMinute}.
       </p>
     );
@@ -80,9 +80,9 @@ export function SensoryTimeline({ events, currentMinute }: Props) {
     >
       {/* Header row */}
       <div className="flex items-center gap-4 px-4 py-2 bg-fa-ink/5 border-b border-fa-border">
-        <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-fa-ink/40 w-10">Min</span>
-        <span className="text-[10px] font-bold uppercase tracking-widest text-fa-ink/40 flex-1">Event</span>
-        <span className="text-[10px] font-bold uppercase tracking-widest text-fa-ink/40 w-20 text-right">Intensity</span>
+        <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-fa-ink-muted w-10">Min</span>
+        <span className="text-[10px] font-bold uppercase tracking-widest text-fa-ink-muted flex-1">Event</span>
+        <span className="text-[10px] font-bold uppercase tracking-widest text-fa-ink-muted w-20 text-right">Intensity</span>
       </div>
 
       {events.map((ev, i) => {
@@ -104,7 +104,7 @@ export function SensoryTimeline({ events, currentMinute }: Props) {
             <span
               className={[
                 'font-mono text-sm font-bold w-10 flex-shrink-0',
-                isActive ? 'text-fa-caution' : 'text-fa-ink/50',
+                isActive ? 'text-fa-caution' : 'text-fa-ink-muted',
               ].join(' ')}
               aria-hidden="true"
             >
@@ -114,7 +114,7 @@ export function SensoryTimeline({ events, currentMinute }: Props) {
             {/* Event details */}
             <div className="flex items-center gap-2 flex-1 min-w-0">
               <span
-                className={isActive ? 'text-fa-caution' : 'text-fa-ink/40'}
+                className={isActive ? 'text-fa-caution' : 'text-fa-ink-muted'}
               >
                 <TypeIcon type={ev.type} />
               </span>

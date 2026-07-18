@@ -49,7 +49,7 @@ export function QuietZoneFinder({ currentNodeId, profiles }: Props) {
               <div className="text-xs font-bold uppercase tracking-wide text-fa-calm mt-0.5">
                 {NODE_TYPE_LABEL[node.type] ?? node.type}
               </div>
-              <div className="text-xs text-fa-ink/50 mt-1">
+              <div className="text-xs text-fa-ink-muted mt-1">
                 Low noise · Steady lighting
               </div>
             </div>
@@ -60,10 +60,10 @@ export function QuietZoneFinder({ currentNodeId, profiles }: Props) {
             {distanceM !== null ? (
               <>
                 <div className="font-mono text-sm font-bold text-fa-ink">~{distanceM}m</div>
-                <div className="text-[10px] text-fa-ink/40 mt-0.5">step-free</div>
+                <div className="text-[10px] text-fa-ink-muted mt-0.5">step-free</div>
               </>
             ) : (
-              <div className="text-xs text-fa-ink/40">No route</div>
+              <div className="text-xs text-fa-ink-muted">No route</div>
             )}
           </div>
         </li>

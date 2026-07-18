@@ -35,7 +35,7 @@ function SectionHeading({ id, children }: { id: string; children: React.ReactNod
   return (
     <h2
       id={id}
-      className="text-[11px] font-bold tracking-[0.2em] uppercase text-fa-ink/40 mb-5"
+      className="text-[11px] font-bold tracking-[0.2em] uppercase text-fa-ink-muted mb-5"
     >
       {children}
     </h2>
@@ -46,7 +46,7 @@ function FieldLabel({ htmlFor, children }: { htmlFor?: string; children: React.R
   return (
     <label
       htmlFor={htmlFor}
-      className="block text-[10px] font-bold uppercase tracking-widest text-fa-ink/40 mb-1.5"
+      className="block text-[10px] font-bold uppercase tracking-widest text-fa-ink-muted mb-1.5"
     >
       {children}
     </label>

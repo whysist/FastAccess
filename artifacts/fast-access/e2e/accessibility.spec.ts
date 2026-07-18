@@ -4,11 +4,14 @@ import AxeBuilder from '@axe-core/playwright';
 function formatViolations(violations: Awaited<ReturnType<AxeBuilder['analyze']>>['violations']): string {
   if (violations.length === 0) return 'none';
   return violations
-    .map(
-      (v) =>
-        `[${v.impact ?? 'unknown'}] ${v.id}: ${v.help}\n  affected: ${v.nodes
-          .map((n) => n.target.join(' '))
-          .join(', ')}`,
+    .map((v) =>
+      [
+        `[${v.impact ?? 'unknown'}] ${v.id}: ${v.help}`,
+        ...v.nodes.map(
+          (n) =>
+            `  selector: ${n.target.join(' ')}\n  html: ${n.html}\n  detail: ${n.failureSummary}`,
+        ),
+      ].join('\n'),
     )
     .join('\n\n');
 }
@@ -19,8 +22,6 @@ test.describe('FastAccess — automated accessibility scan', () => {
     await page.waitForLoadState('networkidle');
 
     const results = await new AxeBuilder({ page }).analyze();
-    // Printed on failure via the custom message, instead of dumping axe's
-    // full verbose result object into an unreadable toEqual() diff.
     expect(results.violations, formatViolations(results.violations)).toEqual([]);
   });
 

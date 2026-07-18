@@ -43,7 +43,7 @@ export function RouteNarration({ route }: Props) {
     <section aria-labelledby="narration-heading" className="mt-6 border-t border-fa-border pt-5">
       <h3
         id="narration-heading"
-        className="text-xs font-bold tracking-[0.2em] uppercase text-fa-ink/50 mb-4"
+        className="text-xs font-bold tracking-[0.2em] uppercase text-fa-ink-muted mb-4"
       >
         Step-by-step directions
       </h3>
@@ -65,7 +65,7 @@ export function RouteNarration({ route }: Props) {
           >
             {/* Step number */}
             <span
-              className="font-mono text-[11px] text-fa-ink/40 w-6 flex-shrink-0 pt-0.5 select-none"
+              className="font-mono text-[11px] text-fa-ink-muted w-6 flex-shrink-0 pt-0.5 select-none"
               aria-hidden="true"
             >
               {String(i + 1).padStart(2, '0')}
@@ -79,7 +79,7 @@ export function RouteNarration({ route }: Props) {
             {/* Distance badge (skip first step) */}
             {step.distanceM > 0 && (
               <span
-                className="font-mono text-[11px] text-fa-ink/50 flex-shrink-0 pt-0.5"
+                className="font-mono text-[11px] text-fa-ink-muted flex-shrink-0 pt-0.5"
                 aria-label={`${step.distanceM} metres`}
               >
                 {step.distanceM}m
