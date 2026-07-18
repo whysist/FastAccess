@@ -75,11 +75,11 @@ const RAW_EDGES: VenueEdge[] = [
   { from: 'junction-b', to: 'ramp-2',     distanceM: 45,  accessType: 'ramp',      noiseLevel: 'medium', lighting: 'steady' },
   { from: 'junction-b', to: 'elevator-2', distanceM: 40,  accessType: 'step-free', noiseLevel: 'low',    lighting: 'steady' },
   // Elevator 1 → Sections 103, 104 (steady lighting)
-  { from: 'elevator-1', to: 'section-103', distanceM: 25, accessType: 'elevator', noiseLevel: 'high', lighting: 'steady' },
-  { from: 'elevator-1', to: 'section-104', distanceM: 35, accessType: 'elevator', noiseLevel: 'high', lighting: 'steady' },
+  { from: 'elevator-1', to: 'section-103', distanceM: 25, accessType: 'elevator', noiseLevel: 'medium', lighting: 'steady' },
+  { from: 'elevator-1', to: 'section-104', distanceM: 35, accessType: 'elevator', noiseLevel: 'medium', lighting: 'steady' },
   // Elevator 2 → Sections 107, 108 (steady lighting)
-  { from: 'elevator-2', to: 'section-107', distanceM: 25, accessType: 'elevator', noiseLevel: 'high', lighting: 'steady' },
-  { from: 'elevator-2', to: 'section-108', distanceM: 35, accessType: 'elevator', noiseLevel: 'high', lighting: 'steady' },
+  { from: 'elevator-2', to: 'section-107', distanceM: 25, accessType: 'elevator', noiseLevel: 'medium', lighting: 'steady' },
+  { from: 'elevator-2', to: 'section-108', distanceM: 35, accessType: 'elevator', noiseLevel: 'medium', lighting: 'steady' },
   // Ramp 1 → Sections 101, 102 (flashing lights near pitch-side)
   { from: 'ramp-1', to: 'section-101', distanceM: 20, accessType: 'ramp', noiseLevel: 'high', lighting: 'flashing' },
   { from: 'ramp-1', to: 'section-102', distanceM: 30, accessType: 'ramp', noiseLevel: 'high', lighting: 'flashing' },

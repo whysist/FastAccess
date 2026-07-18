@@ -6,6 +6,6 @@ export async function POST(request: NextRequest) {
   if (!body || typeof body.nodeId !== 'string') {
     return NextResponse.json({ error: '"nodeId" field is required.' }, { status: 400 });
   }
-  const result = describeNode(body.nodeId, body.profiles ?? undefined);
+  const result = await describeNode(body.nodeId, body.profiles ?? undefined);
   return NextResponse.json({ nodeId: body.nodeId, description: result.description, stub: result.stub });
 }
