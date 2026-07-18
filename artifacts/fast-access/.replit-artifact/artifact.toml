@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "FastAccess"
+version = "1.0.0"
+id = "artifacts/fast-access"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20592
+
+[services.development]
+run = "pnpm --filter @workspace/fast-access run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/fast-access", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/fast-access/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20592"
+BASE_PATH = "/"

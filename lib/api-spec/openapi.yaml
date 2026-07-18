@@ -1,0 +1,278 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: FastAccess accessible stadium navigation API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: route
+    description: Accessible route planning
+  - name: forecast
+    description: Sensory event schedule
+  - name: query
+    description: Natural language query (stub)
+  - name: describe
+    description: Node description (stub)
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /route:
+    get:
+      operationId: getRoute
+      tags: [route]
+      summary: Get accessible route between two venue nodes
+      parameters:
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: profiles
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+      responses:
+        "200":
+          description: Computed accessible route
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RouteResult"
+        "400":
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: No route found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /forecast:
+    get:
+      operationId: getForecast
+      tags: [forecast]
+      summary: Get upcoming sensory events for a match time window
+      parameters:
+        - name: minute
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: window
+          in: query
+          required: false
+          schema:
+            type: number
+            default: 30
+      responses:
+        "200":
+          description: List of sensory events in the window
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SensoryEvent"
+
+  /query:
+    post:
+      operationId: postQuery
+      tags: [query]
+      summary: Natural language query stub (echoes input)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QueryInput"
+      responses:
+        "200":
+          description: Echo response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryResponse"
+
+  /describe:
+    post:
+      operationId: postDescribe
+      tags: [describe]
+      summary: Describe a venue node stub
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DescribeInput"
+      responses:
+        "200":
+          description: Description response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DescribeResponse"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+
+    VenueNode:
+      type: object
+      required: [id, label, type]
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+          enum:
+            - gate
+            - junction
+            - section
+            - ramp
+            - elevator
+            - quiet_room
+            - sensory_area
+            - restroom
+            - service_animal_relief
+            - guest_services
+            - first_aid
+
+    RouteStep:
+      type: object
+      required: [node, distanceM, cumulativeM, accessType, noiseLevel, lighting]
+      properties:
+        node:
+          $ref: "#/components/schemas/VenueNode"
+        distanceM:
+          type: number
+        cumulativeM:
+          type: number
+        accessType:
+          type: string
+          enum: [step-free, ramp, elevator, stairs-only]
+        noiseLevel:
+          type: string
+          enum: [low, medium, high]
+        lighting:
+          type: string
+          enum: [steady, flashing]
+
+    RouteResult:
+      type: object
+      required: [steps, totalDistanceM, profiles]
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/RouteStep"
+        totalDistanceM:
+          type: number
+        profiles:
+          type: array
+          items:
+            type: string
+        found:
+          type: boolean
+
+    SensoryEvent:
+      type: object
+      required: [minute, name, type, intensity]
+      properties:
+        minute:
+          type: number
+        name:
+          type: string
+        type:
+          type: string
+          enum: [noise, light, both]
+        intensity:
+          type: string
+          enum: [low, medium, high]
+        durationMinutes:
+          type: ["number", "null"]
+
+    QueryInput:
+      type: object
+      required: [text]
+      properties:
+        text:
+          type: string
+        context:
+          type: ["string", "null"]
+
+    QueryResponse:
+      type: object
+      required: [echo, stub]
+      properties:
+        echo:
+          type: string
+        stub:
+          type: boolean
+        message:
+          type: string
+
+    DescribeInput:
+      type: object
+      required: [nodeId]
+      properties:
+        nodeId:
+          type: string
+        profiles:
+          type: array
+          items:
+            type: string
+
+    DescribeResponse:
+      type: object
+      required: [nodeId, description, stub]
+      properties:
+        nodeId:
+          type: string
+        description:
+          type: string
+        stub:
+          type: boolean

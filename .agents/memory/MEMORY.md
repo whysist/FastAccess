@@ -1,0 +1,1 @@
+- [FastAccess Next.js config](fast-access-nextjs.md) — Next.js 14 requires next.config.mjs (not .ts); React 18 pinned; Tailwind v3 only
