@@ -222,7 +222,7 @@ export function FastAccessApp() {
 
         <section aria-labelledby="quiet-heading">
           <SectionHeading id="quiet-heading">Nearest Quiet Zones</SectionHeading>
-          <QuietZoneFinder currentNodeId={fromNode} />
+          <QuietZoneFinder currentNodeId={fromNode} profiles={profiles} />
         </section>
       </div>
 

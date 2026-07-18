@@ -6,7 +6,10 @@ test.describe('FastAccess — profile selection and routing', () => {
   });
 
   test('renders the FastAccess masthead', async ({ page }) => {
-    await expect(page.getByRole('heading', { level: 1 })).toContainText('FASTACCESS');
+    // The heading's DOM text is "FastAccess" -- visual all-caps comes from
+    // a CSS text-transform, not the underlying text content -- so match
+    // case-insensitively rather than asserting a specific casing.
+    await expect(page.getByRole('heading', { level: 1 })).toContainText(/fastaccess/i);
   });
 
   test('wheelchair profile is selected by default', async ({ page }) => {
@@ -26,9 +29,12 @@ test.describe('FastAccess — profile selection and routing', () => {
   });
 
   test('initial route from North Gate to Section 104 renders', async ({ page }) => {
-    // The route map should contain the start and end nodes
-    await expect(page.getByText('North Gate')).toBeVisible();
-    await expect(page.getByText('Section 104')).toBeVisible();
+    // Scope to the route map specifically -- "North Gate"/"Section 104"
+    // also appear as <option> text in the From/To selects, which makes an
+    // unscoped page-wide text search ambiguous by design.
+    const routeMap = page.getByLabel('Route map');
+    await expect(routeMap.getByText('North Gate')).toBeVisible();
+    await expect(routeMap.getByText('Section 104')).toBeVisible();
   });
 
   test('selecting a profile and clicking Plan Route returns a valid route', async ({ page }) => {
@@ -42,8 +48,9 @@ test.describe('FastAccess — profile selection and routing', () => {
     await page.selectOption('#to-select', 'section-107');
     await page.getByRole('button', { name: /plan route/i }).click();
 
-    // Wait for route to render
-    await expect(page.getByText('Section 107')).toBeVisible({ timeout: 5000 });
+    // Wait for route to render, scoped to the route map to avoid matching
+    // the still-present <option value="section-107"> in the two selects.
+    await expect(page.getByLabel('Route map').getByText('Section 107')).toBeVisible({ timeout: 5000 });
   });
 
   test('all interactive elements have visible focus rings', async ({ page }) => {

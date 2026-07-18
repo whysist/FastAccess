@@ -13,17 +13,20 @@ const NODE_TYPE_LABEL: Record<string, string> = {
 
 interface Props {
   currentNodeId: string;
+  profiles: string[];
 }
 
-export function QuietZoneFinder({ currentNodeId }: Props) {
+export function QuietZoneFinder({ currentNodeId, profiles }: Props) {
   const zones = useMemo(() => {
     return QUIET_NODE_IDS.map((id) => {
       const node = VENUE_NODES.find((n) => n.id === id)!;
-      // Use wheelchair profile (step-free) for distance calculation
-      const result = computeRoute(currentNodeId, id, ['wheelchair']);
+      // Use the fan's actually selected access profiles so the distance
+      // shown reflects a route they can genuinely take -- not always a
+      // wheelchair-constrained path regardless of who's asking.
+      const result = computeRoute(currentNodeId, id, profiles);
       return { node, distanceM: result.found ? result.totalDistanceM : null };
     }).sort((a, b) => (a.distanceM ?? Infinity) - (b.distanceM ?? Infinity));
-  }, [currentNodeId]);
+  }, [currentNodeId, profiles]);
 
   return (
     <ul className="border border-fa-border" aria-label="Nearest quiet zones and sensory-friendly areas">
