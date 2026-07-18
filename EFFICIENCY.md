@@ -1,10 +1,8 @@
 # Efficiency
 
 ## Design choices
-- Next.js Server Components by default; Client Components only where interactivity is required (profile selector, route narration, query box).
+- Next.js App Router; Client Components only where interactivity is required (profile selector, route planning, query box).
 - Venue and sensory data are pure functions evaluated on demand — no database round-trips, no persistent connections, and no state that can drift between server instances.
 - No AI calls happen client-side; the client only ever talks to this app's own API routes.
-- Minimal dependency footprint keeps bundle size and cold-start time low.
+- Minimal dependency footprint: 4 production dependencies total (`next`, `react`, `react-dom`, `@google/genai`).
 
-## Results
-_To be filled in before submission: Lighthouse performance score (if measured) and any notable bundle-size figures from the production build._
